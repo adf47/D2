@@ -1,5 +1,5 @@
 require_relative 'Simulator'
-
+require_relative 'check_args'
 
 def show_usage_and_exit
   puts 'Usage:'
@@ -8,24 +8,11 @@ def show_usage_and_exit
   exit 1
 end
 
-# Returns true if and only if: FIX THIS COMMENT
-# 1. There is one and only one argument
-# 2. That argument, when converted to an integer, is nonnegative
-# Returns false otherwise
-# If any errors occur (e.g. args is nil), just return false - we are
-# going to exit anyways, so no need for more detailed categorization
-# of the error
-
-def check_args(args)
-  args.count == 2 && args[0].to_i > 0 && args[1].to_i > 0
-rescue StandardError
-    false
-end
-
 # EXECUTION STARTS HERE
 
 # Verify that the arguments are valid
-valid_args = check_args ARGV
+args = CheckArgs.new
+valid_args = args.check_args ARGV
 
 # If arguments are valid, start the program
 # Otherwise, show proper usage message and exit program
