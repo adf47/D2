@@ -65,8 +65,8 @@ class GoldRushTest < Minitest::Test
     # seed = -INFINITY..-1 -> returns nil
     # seed = 1..INFINITY -> returns pseudorandom number, that will always be the
     # same for the same seed
-    # args = (not a number) -> returns nil
-    # args = 0 -> returns nil
+    # seed = (not a number) -> returns nil
+    # seed = 0 -> returns nil
 
 
     #Test that negative numbers returns nil. This is also based on requirement 1
