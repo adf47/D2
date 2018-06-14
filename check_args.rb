@@ -1,3 +1,5 @@
+#Class that checks users input arguments (ARGV) is correct
+
 class CheckArgs
 
     def check_args(args)
