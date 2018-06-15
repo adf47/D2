@@ -1,4 +1,4 @@
-require_relative 'Simulator'
+require_relative 'simulator'
 require_relative 'check_args'
 
 def show_usage_and_exit
