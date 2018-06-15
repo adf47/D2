@@ -1,5 +1,25 @@
 class Simulator
 
+    #Sets up map of cities
+    @map = [
+                ["Sutter Creek","Coloma"],
+                ["Sutter Creek","Angels Camp"],
+                ["Coloma","Virginia City"],
+                ["Coloma","Sutter Creek"],
+                ["Angels Camp","Nevada City"],
+                ["Angels Camp","Virginia City"],
+                ["Angels Camp","Sutter Creek"], #this one might go?
+                ["Nevada City","Angels Camp"],
+                ["Virginia City","Angels Camp"],
+                ["Virginia City","Coloma"],
+                ["Virginia City","Midas"],
+                ["Virginia City","El Dorado Canyon"],
+                ["Midas","Virginia City"],
+                ["Midas","El Dorado Canyon"],
+                ["El Dorado Canyon","Virginia City"],
+                ["El Dorado Canyon","Midas"]
+            ]
+
     def initialize(seed,prospector_count)
         @seed = seed   #Random number generator seed
         @prospector_count = prospector_count #Number of prospectors
