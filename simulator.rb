@@ -12,7 +12,7 @@ class Simulator
     def play
         puts "Start Simulator"
         set_map
-        pete = Prospector.new()
+        pete = Prospector.new(@map)
         run_simulation(@prospector_count,pete)
     end
 
@@ -20,23 +20,14 @@ class Simulator
     def set_map
         #Sets up map of cities
         @map = [
-                    ["Sutter Creek","Coloma"],
-                    ["Sutter Creek","Angels Camp"],
-                    ["Coloma","Virginia City"],
-                    ["Coloma","Sutter Creek"],
-                    ["Angels Camp","Nevada City"],
-                    ["Angels Camp","Virginia City"],
-                    ["Angels Camp","Sutter Creek"], #this one might go?
+                    ["Sutter Creek","Coloma","Angels Camp"],
+                    ["Coloma","Virginia City","Sutter Creek"],
+                    ["Angels Camp","Nevada City","Virginia City","Sutter Creek"],
                     ["Nevada City","Angels Camp"],
-                    ["Virginia City","Angels Camp"],
-                    ["Virginia City","Coloma"],
-                    ["Virginia City","Midas"],
-                    ["Virginia City","El Dorado Canyon"],
-                    ["Midas","Virginia City"],
-                    ["Midas","El Dorado Canyon"],
-                    ["El Dorado Canyon","Virginia City"],
-                    ["El Dorado Canyon","Midas"]
-                ]
+                    ["Virginia City","Angels Camp","Coloma","Midas","El Dorado Canyon"],
+                    ["Midas","Virginia City","El Dorado Canyon"],
+                    ["El Dorado Canyon","Virginia City","Midas"]
+              ]
     end
 
     #Generates random number based on passed in seed.
@@ -62,15 +53,15 @@ class Simulator
             while y < @map.length
                 while z < @map[y].length
                     if y == 0 && z == 0 && count < 5
-                        puts "Prospector #{x} is starting in #{@map[y][z]}"
-                        pete.mine()
+                        #puts "Prospector #{x} is starting in #{@map[y][z]}"
+                        pete.mine(count,y)
                         pete.next_location()
                         count = count + pete.location_count()
                         #puts "Prospector #{x} is heading from #{@map[y][z]} to.."
                     end
                     if y > 0 && count < 5
-                        puts "Prospector #{x} is heading from #{@map[y][z]} to.."
-                        pete.mine()
+                        #puts "Prospector #{x} is heading from #{@map[y][z]} to.."
+                        pete.mine(count,y)
                         pete.next_location()
                         count = count + pete.location_count()
                     end
