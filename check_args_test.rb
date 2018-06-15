@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 require 'minitest/autorun'
 require_relative 'check_args'
 
@@ -33,6 +36,13 @@ class CheckArgsTest < Minitest::Test
     def test_check_args_invalid_string2
         args = CheckArgs.new
         assert_equal false, args.check_args(["HI", "HI2"])
+    end
+
+    #Test that two string arguments on command line fails
+    #EDGE CASE
+    def test_check_args_invalid_string3
+        args = CheckArgs.new
+        assert_equal false, args.check_args(["HI", 4])
     end
 
     #Test that negative int argument on command line fails

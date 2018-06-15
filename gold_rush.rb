@@ -19,7 +19,7 @@ valid_args = args.check_args ARGV
 if valid_args
   seed = ARGV[0].to_i
   prospector_count = ARGV[1].to_i
-  @sim = Simulator::new seed,prospector_count
+  @sim = Simulator.new(seed, prospector_count)
   @sim.play
 else
   show_usage_and_exit

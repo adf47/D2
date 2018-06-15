@@ -87,4 +87,5 @@ class Simulator
         success # for testing purposes to know if method passed
     end
 
-end #end of class
+end
+#end of class
