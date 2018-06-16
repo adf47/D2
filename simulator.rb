@@ -17,7 +17,7 @@ class Simulator
         while x <= @prospector_count
             pete = Prospector.new(@map,MapFinder.new)
             run_simulation(x,pete)
-            pete.see_results
+            pete.see_results(x)
             x=x+1
         end
     end

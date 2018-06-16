@@ -6,6 +6,7 @@ class Prospector
         @gold_total = 0
         @silver_total = 0
         @visited_locations = 1
+        @days_mined = 0
     end
 
     #Method that allows prospector to mine for gold/silver at location
@@ -17,11 +18,20 @@ class Prospector
         if iteration < 4 && iteration >=0 && city >= 0 && city < 7
             found = 1
             while found == 1
+                @days_mined+=1
                 silver = rand(@chart[city][0]).to_i
-                puts "      Found #{silver} ounces of silver in #{@map[city][0]}" unless silver == 0
+                if silver == 1
+                    puts "      Found #{silver} ounce of silver in #{@map[city][0]}"
+                else
+                    puts "      Found #{silver} ounces of silver in #{@map[city][0]}" unless silver == 0
+                end
                 @silver_total = @silver_total + silver
                 gold = rand(@chart[city][1]).to_i
-                puts "      Found #{gold} ounces of gold in #{@map[city][0]}" unless gold == 0
+                if gold == 1
+                    puts "      Found #{gold} ounce of gold in #{@map[city][0]}"
+                else
+                    puts "      Found #{gold} ounces of gold in #{@map[city][0]}" unless gold == 0
+                end
                 @gold_total = @gold_total + gold
                 if silver == 0 && gold == 0
                     found = 0
@@ -34,6 +44,7 @@ class Prospector
         if iteration >= 4 && city >= 0 && city < 7
             found = 1
             while found == 1
+                @days_mined+=1
                 silver = rand(@chart[city][0]).to_i
                 puts "      Found #{silver} ounces of silver in #{@map[city][0]}" unless silver == 0
                 gold = rand(@chart[city][1]).to_i
@@ -96,11 +107,34 @@ class Prospector
     end
 
     #Method to display prospectors results
-    def see_results
+    def see_results(prospector)
         puts "\n\n"
-        puts "Collected #{@silver_total} ounces of silver"
-        puts "Collected #{@gold_total} ounces of gold"
+
+        puts "After #{@days_mined} days prospector ##{prospector} returned to San Francisco with:"
+        if @silver_total == 1
+            puts "      #{@silver_total} ounce of silver"
+        else
+            puts "      #{@silver_total} ounces of silver"
+        end
+        if @gold_total == 1
+            puts "      #{@gold_total} ounce of gold"
+        else
+            puts "      #{@gold_total} ounces of gold"
+        end
+
+        puts "      Heading home with $#{calculate_money(@silver_total,@gold_total)}"
         puts "\n\n"
+    end
+
+    #Method to calculate price of gold and silver collected
+    def calculate_money(silver,gold)
+        if silver.is_a?(String) || gold.is_a?(String) || silver < 0 || gold < 0
+            return nil
+        end
+        silver_price = 1.31 * silver
+        gold_price = 20.67 * gold
+        total = silver_price + gold_price
+        "%0.2f" % [total]
     end
 
 end

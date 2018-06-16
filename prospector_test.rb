@@ -297,4 +297,79 @@ class ProspectorTest < Minitest::Test
     end
 
 
+    # UNIT TESTS FOR METHOD calculate_money(silver,gold) in Prospector Class
+    # Equivalence classes:
+    # silver = -INFINITY..-1 -> returns nil
+    # silver = 0..INFINITY -> returns valid total price rounded to
+    # two decimal points.
+    # silver = (Not a number)) -> returns nil
+    # gold = -INFINITY..-1 -> returns nil
+    # gold = 0..INFINITY -> returns valid total price rounded to
+    # two decimal points.
+    # gold = (Not a number)) -> returns nil
+
+    #Test for when silver input is negative
+    def test_negative_silver
+        mock_map = Minitest::Mock.new("Mock Map")
+        mock_map_finder = Minitest::Mock.new("Mock Map Finder")
+        pete = Prospector.new(mock_map,mock_map_finder)
+        assert_nil pete.calculate_money(-2,2)
+    end
+
+    #Test for when silver input is a string
+    def test_string_silver
+        mock_map = Minitest::Mock.new("Mock Map")
+        mock_map_finder = Minitest::Mock.new("Mock Map Finder")
+        pete = Prospector.new(mock_map,mock_map_finder)
+        assert_nil pete.calculate_money("Ounces",2)
+    end
+
+    #Test for when silver input is valid
+    def test_valid_silver
+        mock_map = Minitest::Mock.new("Mock Map")
+        mock_map_finder = Minitest::Mock.new("Mock Map Finder")
+        pete = Prospector.new(mock_map,mock_map_finder)
+        assert_equal "43.96", pete.calculate_money(2,2)
+    end
+
+    #Test for when silver input is valid and rounds to two decimals
+    def test_valid_silver_two_decimals
+        mock_map = Minitest::Mock.new("Mock Map")
+        mock_map_finder = Minitest::Mock.new("Mock Map Finder")
+        pete = Prospector.new(mock_map,mock_map_finder)
+        assert_equal "20.67", pete.calculate_money(15.77608,0)
+    end
+
+    #Test for when gold input is negative
+    def test_negative_gold
+        mock_map = Minitest::Mock.new("Mock Map")
+        mock_map_finder = Minitest::Mock.new("Mock Map Finder")
+        pete = Prospector.new(mock_map,mock_map_finder)
+        assert_nil pete.calculate_money(2,-22)
+    end
+
+    #Test for when gold input is a string
+    def test_string_gold
+        mock_map = Minitest::Mock.new("Mock Map")
+        mock_map_finder = Minitest::Mock.new("Mock Map Finder")
+        pete = Prospector.new(mock_map,mock_map_finder)
+        assert_nil pete.calculate_money(6,"Gold")
+    end
+
+    #Test for when gold input is valid
+    def test_valid_gold
+        mock_map = Minitest::Mock.new("Mock Map")
+        mock_map_finder = Minitest::Mock.new("Mock Map Finder")
+        pete = Prospector.new(mock_map,mock_map_finder)
+        assert_equal "449.79", pete.calculate_money(12,21)
+    end
+
+    #Test for when gold input is valid and rounds to two decimals
+    def test_valid_gold_two_decimals
+        mock_map = Minitest::Mock.new("Mock Map")
+        mock_map_finder = Minitest::Mock.new("Mock Map Finder")
+        pete = Prospector.new(mock_map,mock_map_finder)
+        assert_equal "326.09", pete.calculate_money(0,15.77608)
+    end
+
 end
