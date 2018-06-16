@@ -1,4 +1,5 @@
 require_relative 'prospector'
+require_relative 'map_finder'
 
 class Simulator
 
@@ -12,10 +13,11 @@ class Simulator
     def play
         puts "Start Simulator"
         set_map
-        pete = Prospector.new(@map)
         x = 1
         while x <= @prospector_count
+            pete = Prospector.new(@map,MapFinder.new)
             run_simulation(x,pete)
+            pete.see_results
             x=x+1
         end
     end
@@ -44,13 +46,13 @@ class Simulator
         while count < 5 && prospector_count > 0
             if y == 0 && count == 0
                 puts "\nProspector #{prospector_count} is starting in #{@map[y][0]}"
-                pete.mine(count,y)
-                y = pete.next_location(y,@seed,prospector_count)
+                pete.mine(count,y,@seed)
                 count = count + pete.location_count()
+                y = pete.next_location(y,@seed,prospector_count) unless count >= 5
             elsif y >= 0 && count < 5
-                pete.mine(count,y)
-                y = pete.next_location(y,@seed,prospector_count)
+                pete.mine(count,y,@seed)
                 count = count + pete.location_count()
+                y = pete.next_location(y,@seed,prospector_count) unless count > 5
             end
             success = count
         end

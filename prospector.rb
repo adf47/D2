@@ -1,11 +1,15 @@
 class Prospector
 
-    def initialize(map)
+    def initialize(map,map_finder)
         @map = map
+        @map_finder = map_finder
+        @gold_total = 0
+        @silver_total = 0
+        @visited_locations = 1
     end
 
     #Method that allows prospector to mine for gold/silver at location
-    def mine(iteration,city)
+    def mine(iteration,city,seed)
         set_gold_chart
         iteration = iteration.to_i
         city = city.to_i
@@ -15,8 +19,10 @@ class Prospector
             while found == 1
                 silver = rand(@chart[city][0]).to_i
                 puts "      Found #{silver} ounces of silver in #{@map[city][0]}" unless silver == 0
+                @silver_total = @silver_total + silver
                 gold = rand(@chart[city][1]).to_i
                 puts "      Found #{gold} ounces of gold in #{@map[city][0]}" unless gold == 0
+                @gold_total = @gold_total + gold
                 if silver == 0 && gold == 0
                     found = 0
                     puts "      Found no precious metals in #{@map[city][0]}"
@@ -34,6 +40,9 @@ class Prospector
                 puts "      Found #{gold} ounces of gold in #{@map[city][0]}" unless gold == 0
                 if silver < 2 && gold < 1
                     found = 0
+                end
+                if silver == 0 && gold == 0
+                    puts "      Found no precious metals in #{@map[city][0]}"
                 end
             end
             success = 1
@@ -53,15 +62,25 @@ class Prospector
 
     #Method that picks the prospectors next location
     def next_location(current_city,seed,prospector)
-        next_city = random_number(seed,@map[current_city].length)
+        if current_city < 0 || current_city >= 7
+            return nil
+        end
+        range = 1
+        range = @map[current_city].length-1 unless @map[current_city].length <= 1
+        next_city = random_number(seed,range)
+
         if next_city == 0
             next_city+=1
         end
-        puts "Prospector #{prospector} is traveling to #{@map[current_city][next_city]}"
+        if next_city == nil
+            return nil
+        end
+        puts "Heading from #{@map[current_city][0]} to #{@map[current_city][next_city]}, holding #{@silver_total} ounces of silver and #{@gold_total} ounces of gold." unless @visited_locations >= 5
 
         #Gets next_city location on map to return
-        get_city_index(@map[current_city][next_city])
-
+        @visited_locations+=1
+        city = @map_finder.get_city_index(@map[current_city][next_city])
+        city
     end
 
     #Method to keep track of prospectors locations visited.
@@ -76,23 +95,12 @@ class Prospector
         @chart = [[0,2],[0,3],[0,4],[0,5],[3,3],[5,0],[10,0]]
     end
 
-    #Method to get which index new city location is in 2D array
-    def get_city_index(city)
-        index = -1
-        if city == "Sutter Creek"
-            index = 0
-        elsif city == "Coloma"
-            index = 1
-        elsif city == "Angels Camp"
-            index = 2
-        elsif city == "Nevada City"
-            index = 3
-        elsif city == "Virginia City"
-            index = 4
-        elsif city == "Midas"
-            index = 5
-        else
-            index = 6
-        end
+    #Method to display prospectors results
+    def see_results
+        puts "\n\n"
+        puts "Collected #{@silver_total} ounces of silver"
+        puts "Collected #{@gold_total} ounces of gold"
+        puts "\n\n"
     end
+
 end

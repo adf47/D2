@@ -55,7 +55,7 @@ class SimulatorTest < Minitest::Test
         sim = Simulator.new(1,2)
         sim.set_map
         mock_prospector = Minitest::Mock.new("Mock Prospector")
-        def mock_prospector.mine(param,param2);1;end
+        def mock_prospector.mine(param,param2,param3);1;end
         def mock_prospector.next_location(param,param2,param3);1;end
         def mock_prospector.location_count;1;end
         assert_equal 5, sim.run_simulation(4,mock_prospector)
