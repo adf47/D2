@@ -13,7 +13,11 @@ class Simulator
         puts "Start Simulator"
         set_map
         pete = Prospector.new(@map)
-        run_simulation(@prospector_count,pete)
+        x = 1
+        while x <= @prospector_count
+            run_simulation(x,pete)
+            x=x+1
+        end
     end
 
     #sets up the map
@@ -30,52 +34,27 @@ class Simulator
               ]
     end
 
-    #Generates random number based on passed in seed.
-    def random_number(seed)
-        seed = seed.to_i
-        if seed > 0
-            rng2 = Random.new(seed)
-            num = rng2.rand(seed) + 1
-            num
-        end
-    end
-
     #Starts the prospector simulation
     def run_simulation(prospector_count,pete)
         prospector_count = prospector_count.to_i
         #Iterate through each prospector
         success = nil
         count = 0
-        x = 1 # needs at least 1 prospector
-        y = 0 #location/city
-        z = 0
-        while x <= prospector_count do
-            while y < @map.length
-                while z < @map[y].length
-                    if y == 0 && z == 0 && count < 5
-                        #puts "Prospector #{x} is starting in #{@map[y][z]}"
-                        pete.mine(count,y)
-                        pete.next_location()
-                        count = count + pete.location_count()
-                        #puts "Prospector #{x} is heading from #{@map[y][z]} to.."
-                    end
-                    if y > 0 && count < 5
-                        #puts "Prospector #{x} is heading from #{@map[y][z]} to.."
-                        pete.mine(count,y)
-                        pete.next_location()
-                        count = count + pete.location_count()
-                    end
-                    z = z + 1
-                end
-                z = 0
-                y = y + 1
+        y = 0
+        while count < 5 && prospector_count > 0
+            if y == 0 && count == 0
+                puts "\nProspector #{prospector_count} is starting in #{@map[y][0]}"
+                pete.mine(count,y)
+                y = pete.next_location(y,@seed,prospector_count)
+                count = count + pete.location_count()
+            elsif y >= 0 && count < 5
+                pete.mine(count,y)
+                y = pete.next_location(y,@seed,prospector_count)
+                count = count + pete.location_count()
             end
-            y = 0
-            x = x + 1
-            success = count #to test we reach 5 locations
-            count = 0
+            success = count
         end
-        success # for testing purposes to know if method passed
+        success
     end
 
 end
