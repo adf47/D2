@@ -14,11 +14,12 @@ class Prospector
             found = 1
             while found == 1
                 silver = rand(@chart[city][0]).to_i
-                puts "      Found #{silver} ounces of silver in #{@map[city][0]}"
+                puts "      Found #{silver} ounces of silver in #{@map[city][0]}" unless silver == 0
                 gold = rand(@chart[city][1]).to_i
-                puts "      Found #{gold} ounces of gold in #{@map[city][0]}"
+                puts "      Found #{gold} ounces of gold in #{@map[city][0]}" unless gold == 0
                 if silver == 0 && gold == 0
                     found = 0
+                    puts "      Found no precious metals in #{@map[city][0]}"
                 end
             end
             success = 1
@@ -28,9 +29,9 @@ class Prospector
             found = 1
             while found == 1
                 silver = rand(@chart[city][0]).to_i
-                puts "      Found #{silver} ounces of silver in #{@map[city][0]}"
+                puts "      Found #{silver} ounces of silver in #{@map[city][0]}" unless silver == 0
                 gold = rand(@chart[city][1]).to_i
-                puts "      Found #{gold} ounces of gold in #{@map[city][0]}"
+                puts "      Found #{gold} ounces of gold in #{@map[city][0]}" unless gold == 0
                 if silver < 2 && gold < 1
                     found = 0
                 end
