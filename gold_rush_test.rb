@@ -1,5 +1,5 @@
-#This tests the gold_rush.rb source code File
-#This file calls all other tests files for this program
+# This tests the gold_rush.rb source code File
+# This file calls all other tests files for this program
 require 'simplecov'
 SimpleCov.start
 

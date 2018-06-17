@@ -14,7 +14,9 @@ class Prospector
   def mine(iteration, city)
     iteration = iteration.to_i
     city = city.to_i
-    if iteration < 4 && iteration >= 0 && city >= 0 && city < 7
+    return nil if iteration < 0 || city < 0 || city >= 7
+    success = 1
+    if iteration < 4
       loop do
         @days_mined += 1
         silver = rand(@chart[city][0]).to_i
@@ -27,7 +29,6 @@ class Prospector
         @gold_total += gold
         puts "      Found no precious metals in #{@map[city][0]}" if silver.zero? && gold.zero?
         break if silver.zero? && gold.zero?
-        1
       end
     else
       loop do
@@ -38,9 +39,9 @@ class Prospector
         puts "      Found #{gold} ounces of gold in #{@map[city][0]}" unless gold.zero?
         puts "      Found no precious metals in #{@map[city][0]}" if silver.zero? && gold.zero?
         break if silver < 2 && gold < 1
-        1
       end
     end
+    success
   end
 
   # Generates random number based on passed in seed.
@@ -53,11 +54,12 @@ class Prospector
   end
 
   # Method that picks the prospectors next location
-  def next_location(current_city, seed, _prospector)
+  def next_location(current_city, seed)
+    current_city = current_city.to_i
     return nil if current_city < 0 || current_city >= 7
     range = 1
     range = @map[current_city].length - 1 unless @map[current_city].length <= 1
-    next_city = random_number(seed, range)
+    next_city = random_number(seed, range).to_i
 
     next_city += 1 if next_city.zero?
     return nil if next_city.nil?

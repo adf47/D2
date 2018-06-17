@@ -42,17 +42,11 @@ class Simulator
     success = nil
     count = 0
     y = 0
+    puts "\nProspector #{prospector_count} is starting in #{@map[y][0]}"
     while count < 5 && prospector_count > 0
-      if y.zero? && count.zero?
-        puts "\nProspector #{prospector_count} is starting in #{@map[y][0]}"
-        pete.mine(count, y)
-        count += pete.location_count
-        y = pete.next_location(y, @seed, prospector_count) unless count >= 5
-      elsif y >= 0 && count < 5
-        pete.mine(count, y)
-        count += pete.location_count
-        y = pete.next_location(y, @seed, prospector_count) unless count > 5
-      end
+      pete.mine(count, y)
+      count += pete.location_count
+      y = pete.next_location(y, @seed) unless count > 5
       success = count
     end
     success

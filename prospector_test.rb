@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require_relative 'prospector'
-
+# Class that tests Prospector class
 class ProspectorTest < Minitest::Test
   # UNIT TESTS FOR METHOD random_number(seed) in Prospector Class
   # Equivalence classes:
@@ -169,7 +169,7 @@ class ProspectorTest < Minitest::Test
     mock_map = Minitest::Mock.new('Mock Map')
     mock_map_finder = Minitest::Mock.new('Mock Map Finder')
     pete = Prospector.new(mock_map, mock_map_finder)
-    assert_equal 1, pete.mine(1, 4, 1)
+    assert_equal 1, pete.mine(1, 4)
   end
 
   # UNIT TESTS FOR METHOD next_location(current_city,seed,prospector) in Prospector Class
@@ -180,9 +180,6 @@ class ProspectorTest < Minitest::Test
   # seed = -INFINITY..-1 -> returns nil
   # seed = 1..INFINITY -> returns next city location
   # seed = 0 -> returns nil
-  # prospector = -INFINITY..-1 -> returns nil
-  # prospector = 1..INFINITY -> returns next city location
-  # prospector = 0 -> returns nil
 
   # Test negative input for current_city
   # EDGE CASE
@@ -192,8 +189,8 @@ class ProspectorTest < Minitest::Test
     pete = Prospector.new(mock_map, mock_map_finder)
     def mock_map_finder.get_city_index(_param)
       nil
-      end
-    assert_nil pete.next_location(-1, 1, 1)
+    end
+    assert_nil pete.next_location(-1, 1)
   end
 
   # Test invalid input = 7 for current_city
@@ -204,8 +201,8 @@ class ProspectorTest < Minitest::Test
     pete = Prospector.new(mock_map, mock_map_finder)
     def mock_map_finder.get_city_index(_param)
       nil
-      end
-    assert_nil pete.next_location(7, 1, 1)
+    end
+    assert_nil pete.next_location(7, 1)
   end
 
   # Test invalid input > 7 for current_city
@@ -215,8 +212,8 @@ class ProspectorTest < Minitest::Test
     pete = Prospector.new(mock_map, mock_map_finder)
     def mock_map_finder.get_city_index(_param)
       nil
-      end
-    assert_nil pete.next_location(10, 1, 1)
+    end
+    assert_nil pete.next_location(10, 1)
   end
 
   # Test valid input for current_city
@@ -226,8 +223,8 @@ class ProspectorTest < Minitest::Test
     pete = Prospector.new(mock_map, mock_map_finder)
     def mock_map_finder.get_city_index(_param)
       3
-      end
-    assert_includes [0, 1, 2, 3, 4, 5, 6], pete.next_location(1, 1, 1)
+    end
+    assert_includes [0, 1, 2, 3, 4, 5, 6], pete.next_location(1, 1)
   end
 
   # Test negative input for seed
@@ -238,8 +235,8 @@ class ProspectorTest < Minitest::Test
     pete = Prospector.new(mock_map, mock_map_finder)
     def mock_map_finder.get_city_index(_param)
       nil
-      end
-    assert_nil pete.next_location(1, -2, 1)
+    end
+    assert_nil pete.next_location(1, -2)
   end
 
   # Test invalid input = 0 for seed
@@ -250,8 +247,8 @@ class ProspectorTest < Minitest::Test
     pete = Prospector.new(mock_map, mock_map_finder)
     def mock_map_finder.get_city_index(_param)
       nil
-      end
-    assert_nil pete.next_location(1, 0, 1)
+    end
+    assert_nil pete.next_location(1, 0)
   end
 
   # Test valid input for seed
@@ -261,43 +258,8 @@ class ProspectorTest < Minitest::Test
     pete = Prospector.new(mock_map, mock_map_finder)
     def mock_map_finder.get_city_index(_param)
       3
-      end
-    assert_includes [0, 1, 2, 3, 4, 5, 6], pete.next_location(1, 2, 1)
-  end
-
-  # Test negative input for prospector
-  # EDGE CASE
-  def test_next_location_negative_prospector
-    mock_map = Minitest::Mock.new('Mock Map')
-    mock_map_finder = Minitest::Mock.new('Mock Map Finder')
-    pete = Prospector.new(mock_map, mock_map_finder)
-    def mock_map_finder.get_city_index(_param)
-      nil
-      end
-    assert_nil pete.next_location(1, 2, -1)
-  end
-
-  # Test invalid input = 0 for prospector
-  # EDGE CASE
-  def test_next_location_invalid_seed_prospector
-    mock_map = Minitest::Mock.new('Mock Map')
-    mock_map_finder = Minitest::Mock.new('Mock Map Finder')
-    pete = Prospector.new(mock_map, mock_map_finder)
-    def mock_map_finder.get_city_index(_param)
-      nil
-      end
-    assert_nil pete.next_location(1, 1, 0)
-  end
-
-  # Test valid input for prospector
-  def test_next_location_valid_prospector
-    mock_map = Minitest::Mock.new('Mock Map')
-    mock_map_finder = Minitest::Mock.new('Mock Map Finder')
-    pete = Prospector.new(mock_map, mock_map_finder)
-    def mock_map_finder.get_city_index(_param)
-      3
-      end
-    assert_includes [0, 1, 2, 3, 4, 5, 6], pete.next_location(1, 2, 1)
+    end
+    assert_includes [0, 1, 2, 3, 4, 5, 6], pete.next_location(1, 2)
   end
 
   # UNIT TESTS FOR METHOD set_gold_chart in Prospector Class
