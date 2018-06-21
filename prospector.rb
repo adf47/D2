@@ -34,10 +34,11 @@ class Prospector
       loop do
         @days_mined += 1
         silver = rand(@chart[city][0]).to_i
-        puts "      Found #{silver} ounces of silver in #{@map[city][0]}" unless silver.zero?
+        puts "      Found #{silver} ounce of silver in #{@map[city][0]}" if silver == 1
+        puts "      Found #{silver} ounces of silver in #{@map[city][0]}" if silver > 1
         gold = rand(@chart[city][1]).to_i
-        puts "      Found #{gold} ounces of gold in #{@map[city][0]}" unless gold.zero?
-        puts "      Found no precious metals in #{@map[city][0]}" if silver.zero? && gold.zero?
+        puts "      Found #{gold} ounce of gold in #{@map[city][0]}" if gold == 1
+        puts "      Found #{gold} ounces of gold in #{@map[city][0]}" if gold > 1
         break if silver <= 2 && gold <= 1
       end
     end
