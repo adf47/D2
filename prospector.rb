@@ -38,7 +38,7 @@ class Prospector
         gold = rand(@chart[city][1]).to_i
         puts "      Found #{gold} ounces of gold in #{@map[city][0]}" unless gold.zero?
         puts "      Found no precious metals in #{@map[city][0]}" if silver.zero? && gold.zero?
-        break if silver < 2 && gold < 1
+        break if silver <= 2 && gold <= 1
       end
     end
     success
