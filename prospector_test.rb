@@ -347,4 +347,51 @@ class ProspectorTest < Minitest::Test
     pete = Prospector.new(mock_map, mock_map_finder)
     assert_equal '326.09', pete.calculate_money(0, 15.77608)
   end
+
+  # UNIT TESTS FOR METHOD see_results(prospector) in Prospector Class
+  # Equivalence classes:
+  # prospector = -INFINITY..-1 -> returns nil
+  # prospector = 0 -> returns nil
+  # prospector = (Not a number)) -> returns nil
+  # prospector = 0..INFINITY  -> returns results in form of string
+
+  # Tests negative input for prospector
+  def test_see_results_negative
+    mock_map = Minitest::Mock.new('Mock Map')
+    mock_map_finder = Minitest::Mock.new('Mock Map Finder')
+    pete = Prospector.new(mock_map, mock_map_finder)
+    assert_nil pete.see_results(-4)
+  end
+
+  # Tests zero input for prospector
+  def test_see_results_zero
+    mock_map = Minitest::Mock.new('Mock Map')
+    mock_map_finder = Minitest::Mock.new('Mock Map Finder')
+    pete = Prospector.new(mock_map, mock_map_finder)
+    assert_nil pete.see_results(0)
+  end
+
+  # Tests string input for prospector
+  def test_see_results_string
+    mock_map = Minitest::Mock.new('Mock Map')
+    mock_map_finder = Minitest::Mock.new('Mock Map Finder')
+    pete = Prospector.new(mock_map, mock_map_finder)
+    assert_nil pete.see_results('Antonino')
+  end
+
+  # Tests valid input for prospector
+  def test_see_results_valid
+    mock_map = Minitest::Mock.new('Mock Map')
+    mock_map_finder = Minitest::Mock.new('Mock Map Finder')
+    pete = Prospector.new(mock_map, mock_map_finder)
+    assert_equal 1, pete.see_results(2)
+  end
+
+  # Tests valid input for prospector formats output correctly
+  def test_see_results_valid_output
+    mock_map = Minitest::Mock.new('Mock Map')
+    mock_map_finder = Minitest::Mock.new('Mock Map Finder')
+    pete = Prospector.new(mock_map, mock_map_finder)
+    assert_output("\n\nAfter 0 days prospector #4 returned to San Francisco with:\n      0 ounces of silver\n      0 ounces of gold\n      Heading home with $0.00\n\n\n") { pete.see_results(4) }
+  end
 end

@@ -89,6 +89,8 @@ class Prospector
 
   # Method to display prospectors results
   def see_results(prospector)
+    prospector = prospector.to_i
+    return nil if prospector <= 0
     puts "\n\n"
 
     puts "After #{@days_mined} days prospector ##{prospector} returned to San Francisco with:"
@@ -105,6 +107,7 @@ class Prospector
 
     puts "      Heading home with $#{calculate_money(@silver_total, @gold_total)}"
     puts "\n\n"
+    1
   end
 
   # Method to calculate price of gold and silver collected
