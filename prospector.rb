@@ -38,6 +38,9 @@ class Prospector
 
   # Method that mines prospectors last 2 locations
   def mine_last_two(city)
+    city = city.to_i
+    return nil if city < 0 || city >= 7
+    success = 1
     loop do
       @days_mined += 1
       silver = rand(@chart[city][0]).to_i
@@ -51,6 +54,7 @@ class Prospector
       puts "      Found no precious metals in #{@map[city][0]}" if silver.zero? && gold.zero?
       break if silver <= 2 && gold <= 1
     end
+    success
   end
 
   # Generates random number based on passed in seed.

@@ -172,6 +172,55 @@ class ProspectorTest < Minitest::Test
     assert_equal 1, pete.mine(1, 4)
   end
 
+  # UNIT TESTS FOR METHOD mine(iteration,city) in Prospector Class
+  # city = -INFINITY..-1 -> returns nil
+  # city = 1..6 -> returns 1, and mining goes as expected
+  # city = 0 -> returns 1, and mining goes as expected
+  # city = 7..INFINITY -> returns nil
+
+  # Tests negative input for city
+  def test_mine_last_two_negative
+    mock_map = Minitest::Mock.new('Mock Map')
+    mock_map_finder = Minitest::Mock.new('Mock Map Finder')
+    pete = Prospector.new(mock_map, mock_map_finder)
+    assert_nil pete.mine_last_two(-10)
+  end
+
+  # Tests invalid input == 7 for city
+  # EDGE CASE
+  def test_mine_last_two_invalid_input_seven
+    mock_map = Minitest::Mock.new('Mock Map')
+    mock_map_finder = Minitest::Mock.new('Mock Map Finder')
+    pete = Prospector.new(mock_map, mock_map_finder)
+    assert_nil pete.mine_last_two(7)
+  end
+
+  # Tests invalid >= 7 input for city
+  # EDGE CASE
+  def test_mine_last_two_invalid_input
+    mock_map = Minitest::Mock.new('Mock Map')
+    mock_map_finder = Minitest::Mock.new('Mock Map Finder')
+    pete = Prospector.new(mock_map, mock_map_finder)
+    assert_nil pete.mine_last_two(24)
+  end
+
+  # Tests zero input for city
+  # EDGE CASE
+  def test_mine_last_two_valid_zero
+    mock_map = Minitest::Mock.new('Mock Map')
+    mock_map_finder = Minitest::Mock.new('Mock Map Finder')
+    pete = Prospector.new(mock_map, mock_map_finder)
+    assert_equal 1, pete.mine_last_two(0)
+  end
+
+  # Tests valid input for city
+  def test_mine_last_two_valid_input
+    mock_map = Minitest::Mock.new('Mock Map')
+    mock_map_finder = Minitest::Mock.new('Mock Map Finder')
+    pete = Prospector.new(mock_map, mock_map_finder)
+    assert_equal 1, pete.mine_last_two(4)
+  end
+
   # UNIT TESTS FOR METHOD next_location(current_city,seed,prospector) in Prospector Class
   # Equivalence classes:
   # current_city = -INFINITY..-1 -> returns nil
@@ -364,6 +413,7 @@ class ProspectorTest < Minitest::Test
   end
 
   # Tests zero input for prospector
+  # EDGE CASE
   def test_see_results_zero
     mock_map = Minitest::Mock.new('Mock Map')
     mock_map_finder = Minitest::Mock.new('Mock Map Finder')
