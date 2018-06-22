@@ -442,6 +442,8 @@ class ProspectorTest < Minitest::Test
     mock_map = Minitest::Mock.new('Mock Map')
     mock_map_finder = Minitest::Mock.new('Mock Map Finder')
     pete = Prospector.new(mock_map, mock_map_finder)
-    assert_output("\n\nAfter 0 days prospector #4 returned to San Francisco with:\n      0 ounces of silver\n      0 ounces of gold\n      Heading home with $0.00\n\n\n") { pete.see_results(4) }
+    out_put = "\n\nAfter 0 days prospector #4 returned to San Francisco with:\n"
+    out_put += "      0 ounces of silver\n      0 ounces of gold\n      Heading home with $0.00\n\n\n"
+    assert_output(out_put) { pete.see_results(4) }
   end
 end
